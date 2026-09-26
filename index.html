@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  <meta charset="UTF-8">
+  <title>楕円放物面 z = x² + y²</title>
+  <!-- Plotly.js の読み込み -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    #plot { width: 90vw; height: 90vh; }
+  </style>
+</head>
+<body>
+
+<div id="plot"></div>
+
+<script>
+  const size = 60;
+  const x = [], y = [], z = [];
+  const range = 2;
+
+  for (let i = 0; i < size; i++) {
+    x[i] = -range + (2 * range * i) / (size - 1);
+    y[i] = -range + (2 * range * i) / (size - 1);
+  }
+
+  for (let i = 0; i < size; i++) {
+    z[i] = [];
+    for (let j = 0; j < size; j++) {
+      z[i][j] = Math.pow(x[j], 2) + Math.pow(y[i], 2);
+    }
+  }
+
+  const data = [{
+    z: z,
+    x: x,
+    y: y,
+    type: 'surface',
+    colorscale: 'Plasma'
+  }];
+
+  const layout = {
+    title: '楕円放物面 $z = x² + y²$',
+    autosize: true,
+    scene: {
+      xaxis: { title: 'x' },
+      yaxis: { title: 'y' },
+      zaxis: { title: 'z' }
+    }
+  };
+
+  Plotly.newPlot('plot', data, layout);
+</script>
+
+</body>
+</html>
